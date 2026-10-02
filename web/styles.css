@@ -19,3 +19,11 @@
 .detail-visuals .hero-art.media-logo{width:360px}
 .media-gallery{grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}
 @media(max-width:600px){.detail-visuals{flex-wrap:wrap}.detail-visuals .hero-art{width:190px}.detail-visuals .hero-art.media-backdrop,.detail-visuals .hero-art.media-still{flex-basis:100%}.result-list .media-art{width:86px;min-height:125px}}
+.entity-art-link{display:block;min-width:0;color:inherit;text-decoration:none;flex:none}
+.entity-art-link:hover{text-decoration:none}
+.entity-art-link:hover .media-art{filter:brightness(1.08)}
+.entity-art-link:focus-visible{outline:3px solid var(--accent);outline-offset:-3px;position:relative;z-index:1}
+.credit-roles{font-size:.82rem;color:var(--text);margin-bottom:.55rem;overflow-wrap:anywhere}
+.credit-label{color:var(--muted)}
+.credit-page-note{margin-bottom:1rem}
+.result-list .entity-art-link{display:flex;align-items:stretch}

@@ -32,3 +32,16 @@ the migration catalogue, not fake buttons claiming success.
   and aborts pending work on route changes. No TMDb API requests or keys are used.
 - Images use lazy loading, fixed aspect ratios, meaningful alt text, no referrer
   and an error fallback. Private photographs still use local blobs/API uploads.
+- Entity card artwork and its fallback are keyboard-accessible links to the same
+  entity as the title, for all card/list/sample/relation views. TMDb gallery images
+  link to their existing validated source URL instead of inventing an entity ID.
+- On person pages, group `movie_cast`, `movie_crew`, `series_cast` and `series_crew`
+  by typed movie/series ID within the current relation page only. Keep cast/crew
+  separate, preserve distinct characters/jobs/departments and original `CREDIT_ROWS`
+  in each merged card, and leave the API response and credit-count pagination intact.
+  Do not invent unique-title totals or fetch extra pages to deduplicate globally.
+- Movie headings use `DAT_RELEASE` / `RELEASE_YEAR`; series use `DAT_FIRST_AIR`,
+  `DAT_LAST_AIR` and their year fields. Explicit ongoing `STATUS` values use
+  `present` / `en cours`; unknown bounds stay `?`, and absent dates add no suffix.
+  Never substitute the current year or treat an ongoing show's last air date as
+  its termination date. Presentation helpers and contracts live in `presentation.mjs`.

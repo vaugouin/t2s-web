@@ -117,7 +117,7 @@ test('prefixed assets, configuration, health and legacy entries share an isolate
     const r=await fetch(new URL(asset,entry.url));
     assert.equal(r.status,200,asset);
   }
-  for(const file of ['app.mjs','api.mjs','media.mjs','styles.css','legacy-routes.json','movie.php?movieid=101','t2slist.php?listid=2']) assert.equal((await fetch(s.base+'/t2s-web/'+file)).status,200,file);
+  for(const file of ['app.mjs','api.mjs','media.mjs','presentation.mjs','styles.css','legacy-routes.json','movie.php?movieid=101','t2slist.php?listid=2']) assert.equal((await fetch(s.base+'/t2s-web/'+file)).status,200,file);
   assert.equal((await (await fetch(s.base+'/t2s-web/client-config')).json()).basePath,'/t2s-web/');
   assert.equal((await (await fetch(s.base+'/t2s-web/health')).json()).status,'ok');
   for(const path of ['/','/health','/app.mjs','/client-config','/api/movies/101','/t2s-web-other/','/t2s-web/.env','/t2s-web/api/movies%2F101']) assert.ok((await fetch(s.base+path)).status>=400,path);

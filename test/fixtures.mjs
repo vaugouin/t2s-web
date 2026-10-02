@@ -4,11 +4,18 @@ export const imageRef='20261002-123456_vision_1.1.19_aaaaaaaaaaaaaaaaaaaaaaaaaaa
 export const picture=readFileSync(new URL('./vision-fixture.png',import.meta.url));
 export const movie={ID_MOVIE:101,MOVIE_TITLE:'The Glass Observatory',OVERVIEW:'A synthetic test story, not catalogue data.',DAT_RELEASE:'2024-04-15',POSTER_PATH:'/fixture-poster.jpg',ID_WIKIDATA:'Q123',BUDGET:42000000};
 export const person={ID_PERSON:202,PERSON_NAME:'Avery Test',BIOGRAPHY:'A synthetic person used only in tests.'};
-export function fixtureApi({mediaPreview=false}={}) {
+export function fixtureApi({mediaPreview=false,creditPreview=false}={}) {
   // Optional browser QA uses the public image from TMDb's image-basics documentation.
   // Automated tests never load that CDN; all catalogue responses remain synthetic.
   const film=mediaPreview?{...movie,MOVIE_TITLE:'CDN preview fixture',POSTER_PATH:'/1E5baAaEse26fej7uHcjOgEE2t2.jpg'}:movie;
   const previewRows=[film,{...film,ID_MOVIE:102,MOVIE_TITLE:'Missing path, retrieved from detail',POSTER_PATH:null},{...film,ID_MOVIE:103,MOVIE_TITLE:'Unavailable image fallback',POSTER_PATH:'/MissingFixture123456789.jpg'}];
+  const series={ID_SERIE:301,SERIE_TITLE:'Night Signal',DAT_FIRST_AIR:'2010-09-02',DAT_LAST_AIR:'2018-05-12',STATUS:'Ended',POSTER_PATH:film.POSTER_PATH};
+  const credits={
+    movie_cast:[{...film,CAST_CHARACTER:'Inspector'},{...film,CAST_CHARACTER:'Narrator'},{...film,CAST_CHARACTER:'Inspector'}],
+    movie_crew:[{...film,CREW_DEPARTMENT:'Sound',CREW_JOB:'Sound Recordist'},{...film,CREW_DEPARTMENT:'Crew',CREW_JOB:'Special Thanks'},{...film,CREW_DEPARTMENT:'Sound',CREW_JOB:'Sound Supervisor'},{...film,ID_MOVIE:102,DAT_RELEASE:'1999-04-15',CREW_DEPARTMENT:'Sound',CREW_JOB:'Sound Recordist'}],
+    series_cast:[{...series,CAST_CHARACTER:'Guest'},{...series,CAST_CHARACTER:'Host'}],
+    series_crew:[{...series,CREW_DEPARTMENT:'Production',CREW_JOB:'Producer'},{...series,CREW_DEPARTMENT:'Writing',CREW_JOB:'Writer'}],
+  };
   const calls=[];
   const server=createServer(async(req,res)=>{
     const url=new URL(req.url,'http://fixture');const parts=[];
@@ -29,6 +36,16 @@ export function fixtureApi({mediaPreview=false}={}) {
     if(url.pathname==='/root/samples')return send({ui_language:url.searchParams.get('ui_language')||'en',set:url.searchParams.get('set')||'showcase',categories:[{ID_T2S_EVALUATION_CATEGORY:1,DESCRIPTION:'Synthetic examples',categories:[],samples:[{ID_T2S_EVALUATION:1,QUESTION:'A synthetic film question',IS_SHOWCASE:1,assertion:{result_entity:'movie'},simulated_result:{result_entity:'movie',result:[{index:1,data:film}]}},{ID_T2S_EVALUATION:2,QUESTION:'An incomplete example',IS_SHOWCASE:1,assertion:null,simulated_result:null}]}]});
     const match=url.pathname.match(/^\/root\/(movies|persons|series|companies|networks|collections|topics|lists|movements|technicals|genres|groups|deaths|awards|nominations|locations|seasons|episodes)\/(.+)$/);
     if(match) {
+      if(creditPreview&&match[1]==='persons'){
+        const collection=url.searchParams.get('collection'),page=Number(url.searchParams.get('page')||1);
+        const meta=name=>({total:name==='movie_crew'?7:credits[name].length,page:1,rows_per_page:credits[name].length,returned:credits[name].length});
+        if(collection&&credits[collection]){
+          const items=page===1?credits[collection]:collection==='movie_crew'&&page===2?[{...film,CREW_DEPARTMENT:'Sound',CREW_JOB:'Dialogue Editor'},{...film,ID_MOVIE:103,MOVIE_TITLE:'Later Credit',CREW_JOB:'Director'},{...film,ID_MOVIE:103,MOVIE_TITLE:'Later Credit',CREW_JOB:'Writer'}]:[];
+          return send({id:Number(match[2]),collection,[collection]:items,pagination:{[collection]:{...meta(collection),page,returned:items.length}}});
+        }
+        return send({...person,ID_PERSON:Number(match[2]),PROFILE_PATH:film.POSTER_PATH,...credits,pagination:Object.fromEntries(Object.keys(credits).map(name=>[name,meta(name)]))});
+      }
+      if(creditPreview&&match[1]==='series')return send({...series,ID_SERIE:Number(match[2]),...(match[2]==='302'?{STATUS:'Returning Series'}:{})});
       if(mediaPreview&&match[1]==='persons')return send({...person,ID_PERSON:Number(match[2]),PROFILE_PATH:film.POSTER_PATH});
       const collection=url.searchParams.get('collection');const page=Number(url.searchParams.get('page')||1);
       if(collection)return send({id:Number(match[2].split('/')[0]),collection,[collection]:page===2?[{...person,ID_PERSON:203,PERSON_NAME:'Robin Fixture'}]:[],pagination:{[collection]:{total:page===2?3:0,page,rows_per_page:2,returned:page===2?1:0}}});

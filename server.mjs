@@ -17,6 +17,7 @@ const STATIC = new Map([
   ['/app.mjs', ['app.mjs','text/javascript; charset=utf-8']],
   ['/api.mjs', ['api.mjs','text/javascript; charset=utf-8']],
   ['/media.mjs', ['media.mjs','text/javascript; charset=utf-8']],
+  ['/presentation.mjs', ['presentation.mjs','text/javascript; charset=utf-8']],
   ['/styles.css', ['styles.css','text/css; charset=utf-8']],
   ['/legacy-routes.json', ['legacy-routes.json','application/json; charset=utf-8']],
 ]);

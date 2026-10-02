@@ -1,5 +1,6 @@
 import {ApiClient,MODEL_FIELDS,DETAIL_ROUTES,buildSearchRequest,flattenSamples,entityLink,mergeCollection} from './api.mjs';
 import {pickTmdbImage,imageLookupTarget,ImageDetailLoader} from './media.mjs';
+import {PERSON_CREDIT_RELATIONS,CREDIT_ROLE_FIELDS,groupCreditRows,detailHeading} from './presentation.mjs';
 
 const $=selector=>document.querySelector(selector);
 const main=$('#main');
@@ -36,7 +37,7 @@ function updateHeader(){document.documentElement.lang=prefs.ui_language;$('#lang
 function titleFor(row){const keys=['MOVIE_TITLE','SERIE_TITLE','CONTENT_TITLE','PERSON_NAME','SEASON_NAME','EPISODE_NAME','TITLE','NAME','COMPANY_NAME','NETWORK_NAME','COLLECTION_NAME','TOPIC_NAME','LIST_NAME','MOVEMENT_NAME','GENRE_NAME','GROUP_NAME','DEATH_NAME','AWARD_NAME','NOMINATION_NAME','LOCATION_NAME','TECHNICAL_NAME','DESCRIPTION','VIDEO_NAME','SECTION_TITLE'];for(const k of keys)if(row[k])return String(row[k]);return local('Returned record','Donnée retournée');}
 function fields(data){const dl=node('dl',{class:'fields'});for(const[key,value]of Object.entries(data)){const dd=node('dd');if(typeof value==='string'&&/(?:URL|WEBSITE|HOMEPAGE)$/i.test(key)&&safeURL(value))dd.append(sourceLink(value,value));else dd.textContent=formatted(value);dl.append(node('div',{},node('dt',{},key),dd));}return dl;}
 function resetMediaWork(){artObserver?.disconnect();imageDetails.reset();}
-function imageArt(row,{context={},gallery=null,hydrate=true,hero=false,label=titleFor(row)}={}){
+function imageArt(row,{context={},gallery=null,hydrate=true,hero=false,label=titleFor(row),destination=null}={}){
   const target=imageLookupTarget(row,context),epoch=state.routeEpoch;
   const art=node('div',{class:`entity-art media-art media-${target?.kind==='person'?'profile':'poster'}${hero?' hero-art':''}`});
   const fallback=node('div',{class:'image-fallback'},node('span',{'aria-hidden':'true'},target?.kind==='person'?'○':'▧'),node('small',{},local('No image available','Aucune image disponible')));
@@ -57,9 +58,10 @@ function imageArt(row,{context={},gallery=null,hydrate=true,hero=false,label=tit
     if(artObserver)artObserver.observe(art);
     else queueMicrotask(()=>{if(art.isConnected)pendingArt.get(art)?.();});
   }
+  if(destination)return node('a',{href:destination,class:'entity-art-link','aria-label':local(`Open ${label}`,`Ouvrir ${label}`),...(destination.startsWith('https://')?{target:'_blank',rel:'noopener noreferrer'}:{})},art);
   return art;
 }
-function entityCard(row,context={}){if(row===null||typeof row!=='object')return node('article',{class:'entity'},node('div',{class:'entity-body'},formatted(row)));const target=entityLink(row,context),title=titleFor(row);const body=node('div',{class:'entity-body'},node('h3',{},target?link(title,target.href):title));const tags=node('div',{class:'entity-tags'});if(target)tags.append(node('span',{class:'tag'},target.kind));const date=row.DAT_RELEASE||row.DAT_FIRST_AIR||row.DAT_AIR||row.BIRTHDAY||row.DAT_BIRTH;if(date)tags.append(node('span',{class:'tag'},String(date).slice(0,10)));const rating=row.IMDB_RATING_WEIGHTED??row.IMDB_RATING;if(rating!==undefined&&rating!==null)tags.append(node('span',{class:'tag'},`IMDb ${rating}`));body.append(tags);for(const key of ['CAST_CHARACTER','CREW_JOB','CREW_DEPARTMENT','TAGLINE','OVERVIEW'])if(row[key])body.append(node('p',{class:'entity-description'},row[key]));if(!target&&!Object.keys(row).some(k=>/PATH|URL|IMAGE/.test(k)))body.append(fields(row));body.append(jsonDisclosure(t('metadata'),row));return node('article',{class:'entity'},imageArt(row,{context}),body);}
+function entityCard(row,context={}){if(row===null||typeof row!=='object')return node('article',{class:'entity'},node('div',{class:'entity-body'},formatted(row)));const target=entityLink(row,context),title=titleFor(row);const body=node('div',{class:'entity-body'},node('h3',{},target?link(title,target.href):title));const tags=node('div',{class:'entity-tags'});if(target)tags.append(node('span',{class:'tag'},target.kind));const date=row.DAT_RELEASE||row.DAT_FIRST_AIR||row.DAT_AIR||row.BIRTHDAY||row.DAT_BIRTH;if(date)tags.append(node('span',{class:'tag'},String(date).slice(0,10)));const rating=row.IMDB_RATING_WEIGHTED??row.IMDB_RATING;if(rating!==undefined&&rating!==null)tags.append(node('span',{class:'tag'},`IMDb ${rating}`));body.append(tags);for(const key of CREDIT_ROLE_FIELDS)if(row[key])body.append(node('p',{class:'credit-roles'},node('span',{class:'credit-label'},local({CAST_CHARACTER:'Role / character',CREW_JOB:'Job',CREW_DEPARTMENT:'Department'}[key],{CAST_CHARACTER:'Rôle / personnage',CREW_JOB:'Métier',CREW_DEPARTMENT:'Département'}[key])+': '),row[key]));for(const key of ['TAGLINE','OVERVIEW'])if(row[key])body.append(node('p',{class:'entity-description'},row[key]));if(!target&&!Object.keys(row).some(k=>/PATH|URL|IMAGE/.test(k)))body.append(fields(row));body.append(jsonDisclosure(t('metadata'),row));return node('article',{class:'entity'},imageArt(row,{context,destination:target?.href}),body);}
 function rowsView(rows,mode=prefs.render,context={}){const values=(rows||[]).map(r=>r?.data&&typeof r.data==='object'?r.data:r);if(!values.length)return node('div',{class:'empty'},t('noRows'));if(mode==='table'){const columns=[...new Set(values.flatMap(row=>typeof row==='object'&&row?Object.keys(row):['value']))];const table=node('table',{},node('thead',{},node('tr',{},node('th',{},t('open')),...columns.map(k=>node('th',{},k)))));const tbody=node('tbody');for(const row of values){const data=row&&typeof row==='object'?row:{value:row};const target=entityLink(data,context);tbody.append(node('tr',{},node('td',{},target?link('↗',target.href):'—'),...columns.map(k=>node('td',{},formatted(data[k])))));}table.append(tbody);return node('div',{class:'table-wrap'},table);}return node('div',{class:mode==='list'?'result-list':'grid'},values.map(row=>entityCard(row,context)));}
 function viewSwitcher(onChange){const select=node('select',{'aria-label':local('Result display','Affichage des résultats')},['cards','table','list'].map(mode=>node('option',{value:mode},t(mode))));select.value=prefs.render;select.addEventListener('change',()=>{prefs.render=select.value;savePrefs();onChange();});return select;}
 function resetRoute(){resetMediaWork();state.routeEpoch++;state.controller?.abort();state.searchController?.abort();state.imageController?.abort();state.controller=new AbortController();main.replaceChildren();for(const a of document.querySelectorAll('.header nav a'))a.removeAttribute('aria-current');return state.routeEpoch;}
@@ -138,7 +140,7 @@ async function detailView(kind,ids,focus=null){
   catch(error){if(epoch!==state.routeEpoch||error.name==='AbortError')return;main.replaceChildren(link(`← ${t('back')}`,'#/search'),failure(error,()=>detailView(kind,ids,focus)));}
 }
 function detailContext(){const{kind,ids,data}=state.detail;return {color:state.detail.color,ID_SERIE:data.ID_SERIE||(kind==='serie'?ids[0]:['season','episode'].includes(kind)?ids[0]:undefined),SEASON_NUMBER:data.SEASON_NUMBER||(['season','episode'].includes(kind)?ids[1]:undefined),kind};}
-function renderDetail(focus){const{kind,ids,data}=state.detail;main.replaceChildren();const name=titleFor(data);document.title=`${name} · T2S`;main.append(node('div',{class:'breadcrumbs'},link(t('search'),'#/search'),' / ',kind,' / ',ids.join(' · ')),node('div',{class:'eyebrow'},t('detail')),node('h1',{},name),node('div',{class:'metadata'},badge('partial'),node('span',{class:'tag'},`GET /${DETAIL_ROUTES[kind]}/${ids.join('/')}`),node('span',{class:'tag'},prefs.ui_language.toUpperCase())),alertBox(t('detailsPartial')),alertBox(t('mediaGap')));
+function renderDetail(focus){const{kind,ids,data}=state.detail;main.replaceChildren();const name=detailHeading(titleFor(data),data,kind,prefs.ui_language);document.title=`${name} · T2S`;main.append(node('div',{class:'breadcrumbs'},link(t('search'),'#/search'),' / ',kind,' / ',ids.join(' · ')),node('div',{class:'eyebrow'},t('detail')),node('h1',{},name),node('div',{class:'metadata'},badge('partial'),node('span',{class:'tag'},`GET /${DETAIL_ROUTES[kind]}/${ids.join('/')}`),node('span',{class:'tag'},prefs.ui_language.toUpperCase())),alertBox(t('detailsPartial')),alertBox(t('mediaGap')));
   const artwork=pickTmdbImage(data,{kind});if(artwork){const visuals=node('div',{class:'detail-visuals'},imageArt(data,{context:{kind},hydrate:false,hero:true,label:name}));if(artwork.kind!=='backdrop'&&pickTmdbImage({BACKDROP_PATH:data.BACKDROP_PATH}))visuals.append(imageArt({BACKDROP_PATH:data.BACKDROP_PATH},{hydrate:false,hero:true,label:name}));main.append(visuals);}
   const nav=node('div',{class:'actions'});if(['season','episode'].includes(kind))nav.append(link(local('Series','Série'),`#/detail/serie/${ids[0]}`,'button'));if(kind==='episode')nav.append(link(`${local('Season','Saison')} ${ids[1]}`,`#/detail/season/${ids[0]}/${ids[1]}`,'button'));if(nav.childNodes.length)main.append(nav);
   const scalar=Object.fromEntries(Object.entries(data).filter(([,v])=>v===null||typeof v!=='object'));
@@ -158,7 +160,12 @@ function renderDetail(focus){const{kind,ids,data}=state.detail;main.replaceChild
 function relationSection(name,items){
   const section=node('section',{class:'section',id:`section-${name}`});
   const meta=state.detail.data.pagination?.[name];
-  section.append(node('div',{class:'section-title'},node('h2',{},prettyKey(name)),meta?node('span',{class:'tag'},`${meta.total??'?'} · ${t('page')} ${meta.page||1}`):node('span',{class:'tag'},String(items.length))));
+  const credits=state.detail.kind==='person'&&PERSON_CREDIT_RELATIONS.has(name);
+  const displayItems=credits?groupCreditRows(items,name):items;
+  const creditCount=meta?.total??items.length;
+  const countLabel=credits?` ${Number(creditCount)===1?local('credit','crédit'):local('credits','crédits')}`:'';
+  section.append(node('div',{class:'section-title'},node('h2',{},prettyKey(name)),meta?node('span',{class:'tag'},`${meta.total??'?'}${countLabel} · ${t('page')} ${meta.page||1}`):node('span',{class:'tag'},`${items.length}${countLabel}`)));
+  if(credits)section.append(node('p',{class:'hint credit-page-note'},local(`${displayItems.length} ${displayItems.length===1?'card':'cards'} from ${items.length} ${items.length===1?'credit':'credits'} on this page. Roles are combined per movie or series; the same work may appear on another page.`,`${displayItems.length} ${displayItems.length===1?'fiche':'fiches'} pour ${items.length} ${items.length===1?'crédit':'crédits'} sur cette page. Les rôles sont regroupés par film ou série ; la même œuvre peut apparaître sur une autre page.`)));
   const media=['posters','backdrops','portraits','stills','logos','images','wikipedia_images','videos'].includes(name);
   if(media){
     const tmdbGallery=['posters','backdrops','portraits','stills','logos'].includes(name);
@@ -172,12 +179,12 @@ function relationSection(name,items){
       const image=pickTmdbImage(item,{gallery:name});
       if(image)body.append(node('p',{class:'source'},sourceLink(local('Open TMDb image','Ouvrir l’image TMDb'),image.url)));
       body.append(jsonDisclosure(t('metadata'),item));
-      rows.append(node('article',{class:'entity'},tmdbGallery?imageArt(item,{gallery:name,hydrate:false,label}):null,body));
+      rows.append(node('article',{class:'entity'},tmdbGallery?imageArt(item,{gallery:name,hydrate:false,label,destination:image?.url}):null,body));
     }
     section.append(items.length?rows:node('p',{class:'muted'},t('noRows')));
   }else if(name==='collections_context'){
     for(const context of items){const sub=node('section',{class:'panel'},node('h3',{},context.collection_name||'Collection'));if(context.ID_T2S_COLLECTION)sub.append(link(local('Open collection','Ouvrir la collection'),`#/detail/collection/${context.ID_T2S_COLLECTION}`));sub.append(rowsView(context.collection_movies||[],prefs.render,detailContext()),jsonDisclosure(t('metadata'),context));section.append(sub);}
-  }else section.append(rowsView(items,prefs.render,detailContext()));
+  }else section.append(rowsView(displayItems,prefs.render,detailContext()));
   if(meta){const page=Number(meta.page)||1;const prev=button(t('previous'),()=>loadRelation(name,page-1,section));prev.disabled=page<=1;const next=button(t('next'),()=>loadRelation(name,page+1,section));next.disabled=Number(meta.returned)===0||(Number.isFinite(Number(meta.total))&&page*Number(meta.rows_per_page)>=Number(meta.total));section.append(node('div',{class:'paginator'},prev,node('span',{},`${t('page')} ${page}`),next));}
   return section;
 }

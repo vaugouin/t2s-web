@@ -42,6 +42,12 @@ Search results are `{index,data}` wrappers. Later pages retain the original ques
 
 Detail pagination requires `collection=...`; `page=2` alone does not advance every relation. Targeted results are merged, preserving the other sections. TMDb collection/list IDs must never be sent as T2S collection/list IDs. Season zero is valid; episode identities are composite. Media-row IDs are not movie IDs.
 
+### Credits, card links and heading dates
+
+Person credit sections group repeated works within each returned page of `movie_cast`, `movie_crew`, `series_cast` and `series_crew`, retaining every returned character, job and role. Cast and crew remain separate. Labels distinguish API credit rows from displayed work cards; grouping a page does not establish a unique-work count across all pages. The same work may appear on a later API page with additional roles. A future server-side grouped-credit contract is proposed in the backlog; the API is unchanged.
+
+Entity card pictures and placeholders use the same valid detail link as their card. Records without a resolvable entity route do not receive an invented link. Movie headings use the release year returned by the API. Series headings use the returned first/last-air years and explicit status for ongoing labels; missing or invalid dates never become invented years.
+
 ## Security and configuration boundary
 
 The gateway permits only existing API routes used by the client, with bounded JSON/image payloads, validated query parameters, deadlines and no upstream redirect following. It injects `X-API-Key` server-side and does not forward browser cookies, authorization headers or an arbitrary target URL. Static serving is allowlisted. The content security policy keeps business requests on the same origin and allows the TMDb HTTPS image host for images. This exception does not expose the API key or turn the gateway into an arbitrary media proxy.
@@ -85,8 +91,10 @@ npm run check
 npm test
 ```
 
-Tests use `node:test` and a local synthetic API fixture. They verify gateway contracts, bounded inputs, credential isolation, response handling and image URLs without a database, model call or production API. On 2026-10-02, syntax checks and all **35 tests** passed: 18 gateway, 9 API-helper and 8 media tests. Browser checks covered text/photo search, upload metadata, HTTP-200 business errors, details, relationship paging, EN/FR settings persistence, nested samples, legacy URLs, inert edits and a 390-pixel mobile layout. Core controls are bilingual; technical metadata and migration descriptions remain partly English.
+Tests use `node:test` and a local synthetic API fixture. They verify gateway contracts, bounded inputs, credential isolation, response handling, image URLs and presentation without a database, model call or production API. On 2026-10-02, syntax checks and all **41 tests** passed: 18 gateway, 9 API-helper, 8 media and 6 presentation tests. Browser checks covered text/photo search, upload metadata, HTTP-200 business errors, details, relationship paging, EN/FR settings persistence, nested samples, legacy URLs, inert edits and a 390-pixel mobile layout. Core controls are bilingual; technical metadata and migration descriptions remain partly English.
 
 Additional browser checks used an isolated instance mounted at `/t2s-web/` with synthetic API responses and real public TMDb image downloads. They confirmed loaded `w342` images, lazy loading and `no-referrer`, one existing-detail request to resolve a missing card image path, a named placeholder after an intentional image 404, detail hero/gallery images and images in expanded examples and list views. No production API or model call was made.
+
+Presentation checks verified page-local grouping in all four person-credit sections, preservation of roles/jobs/departments and distinct works sharing a title, and targeted page-two navigation without losing other sections or altering API credit counts. Picture navigation reached movie, person and series details; picture/title targets also matched for season cards, while gallery images kept their source links. Movie years, ended-series ranges and localized ongoing-series labels were verified in detail headings. These checks used synthetic API data and made no production API, model or database calls.
 
 The owner confirmed local API configuration and subsequently reported the VPS deployment working. The agent did not independently verify the production Docker/nginx runtime through SSH; local test results and the owner's deployment confirmation are separate evidence. API proposals are documentation only. Existing legacy broken routes require an explicit product decision before they can count as replaced functionality.
