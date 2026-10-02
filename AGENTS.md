@@ -19,6 +19,8 @@ documented dependencies, not implemented features.
   local Nestor repository.
 - Each new source directory requires AGENTS.md and a CLAUDE.md pointer. Use UTF-8
   and LF. Ignore `.claude/`, secrets, dependency folders and temporary output.
+- Commit every `.sh` file with Git mode `100755`. On Windows, use
+  `git update-index --chmod=+x -- <script.sh>` and verify with `git ls-files --stage`.
 - Tests must use local API fixtures, not paid searches or production services.
 - This repository is public. Do not publish production deployment addresses in
   source, documentation, repository metadata or screenshots. Keep them in the
