@@ -7,9 +7,13 @@ documented dependencies, not implemented features.
 
 - Never connect to MariaDB, import SQL helpers, accept arbitrary SQL, or read another
   repository's secrets. Do not change fastapi-text2sql in this project.
-- All business data and media must pass through the configured fastapi-text2sql
-  API. Do not bypass gaps with TMDb, Wikidata, Plex, MovieMatch, filesystem or DB
-  access. Outbound navigation to a source is distinct from fetching its data.
+- All business data must pass through the configured fastapi-text2sql API.
+  Public TMDb pictures are the explicit exception: render validated API-returned
+  image references directly from https://image.tmdb.org, without a VPS media proxy.
+  Never call the TMDb metadata API or infer that any generic image path is TMDb.
+  Uploaded photos retain the existing authenticated API flow. Other external
+  image hosts, video embeds, Wikidata/Plex/MovieMatch calls and DB access remain
+  outside this permission. Outbound source links are explicit navigation.
 - Use Node.js 22 or newer and browser-native modules. Keep API keys server-side.
   The same-origin gateway has an explicit method/path allowlist and fixed upstreams.
 - User-visible missing capabilities must say that they are unavailable; do not

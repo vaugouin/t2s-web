@@ -1,7 +1,9 @@
 # Browser client
 
 Read ../AGENTS.md. Browser-native modules, accessible HTML, responsive CSS.
-Only request the same-origin gateway and local assets. Render API text with
+Request business data only through the same-origin gateway. The user explicitly
+allows catalogue pictures from `https://image.tmdb.org`; derive their URLs only
+from TMDb paths returned by fastapi-text2sql. Render API text with
 textContent; never trust upstream HTML or turn arbitrary strings into URLs.
 Keep credentials out of browser storage and responses. Language and viewing
 country are independent preferences. API gaps stay visible and actionable in
@@ -20,6 +22,13 @@ the migration catalogue, not fake buttons claiming success.
 - Search pagination resends the original question, returned hash and options;
   no reliable total exists. Detail relation pagination merges only the requested
   relation and preserves the other sections and previously known total.
-- Never load catalogue images or embed videos from external URLs. The only
-  displayed images are user photographs fetched from the API or selected locally.
-  Source links are outbound navigation, sanitized to HTTP(S), not media fetches.
+- `media.mjs` owns the strict TMDb host/path/size boundary. Never reinterpret
+  Wikimedia, private upload or generated-art fields as TMDb image paths. Gallery
+  `IMAGE_PATH` needs a known TMDb relation or typed image-search result. Other
+  media stay metadata/source links; do not embed external videos.
+- Missing card pictures may load existing entity detail endpoints, lazily when
+  visible, with `rows_per_page=1`. The loader limits concurrency to four, caches
+  image descriptors and misses by deployment/language/entity, deduplicates calls,
+  and aborts pending work on route changes. No TMDb API requests or keys are used.
+- Images use lazy loading, fixed aspect ratios, meaningful alt text, no referrer
+  and an error fallback. Private photographs still use local blobs/API uploads.

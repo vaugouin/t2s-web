@@ -16,7 +16,7 @@
     "api": [
       "GET /awards/{id}"
     ],
-    "proposal": "Structured relation filters, API-served media, private library data, releases/providers and source diagnostics are not all available.",
+    "proposal": "TMDb pictures are displayed from API paths. Structured relation filters, non-TMDb media, private library data, releases/providers and source diagnostics are not all available.",
     "params": [
       "awardid"
     ],
@@ -134,7 +134,7 @@
     "api": [
       "GET /companies/{id}"
     ],
-    "proposal": "Structured relation filters, API-served media, private library data, releases/providers and source diagnostics are not all available.",
+    "proposal": "TMDb pictures are displayed from API paths. Structured relation filters, non-TMDb media, private library data, releases/providers and source diagnostics are not all available.",
     "params": [
       "companyid"
     ],
@@ -175,7 +175,7 @@
     "api": [
       "GET /deaths/{id}"
     ],
-    "proposal": "Structured relation filters, API-served media, private library data, releases/providers and source diagnostics are not all available.",
+    "proposal": "TMDb pictures are displayed from API paths. Structured relation filters, non-TMDb media, private library data, releases/providers and source diagnostics are not all available.",
     "params": [
       "deathid"
     ],
@@ -196,9 +196,9 @@
     "group": "media",
     "status": "partial",
     "api": [
-      "Existing entity details: image/video metadata only"
+      "Existing entity details: TMDb image paths and paginated galleries"
     ],
-    "proposal": "GET /media/{media_id} with opaque media references, variants, attribution and pagination",
+    "proposal": "TMDb posters, backdrops, portraits and stills are displayed directly from the image CDN. Non-TMDb media and legacy image filtering still need additional contracts.",
     "params": [
       "serieid",
       "season",
@@ -215,7 +215,7 @@
     "api": [
       "GET /episodes/{id_serie}/{season_number}/{episode_number}"
     ],
-    "proposal": "Structured relation filters, API-served media, private library data, releases/providers and source diagnostics are not all available.",
+    "proposal": "TMDb pictures are displayed from API paths. Structured relation filters, non-TMDb media, private library data, releases/providers and source diagnostics are not all available.",
     "params": [
       "serieid",
       "season",
@@ -231,7 +231,7 @@
     "api": [
       "GET /genres/{id}"
     ],
-    "proposal": "Structured relation filters, API-served media, private library data, releases/providers and source diagnostics are not all available.",
+    "proposal": "TMDb pictures are displayed from API paths. Structured relation filters, non-TMDb media, private library data, releases/providers and source diagnostics are not all available.",
     "params": [
       "genreid"
     ],
@@ -254,7 +254,7 @@
     "api": [
       "GET /groups/{id}"
     ],
-    "proposal": "Structured relation filters, API-served media, private library data, releases/providers and source diagnostics are not all available.",
+    "proposal": "TMDb pictures are displayed from API paths. Structured relation filters, non-TMDb media, private library data, releases/providers and source diagnostics are not all available.",
     "params": [
       "groupid"
     ],
@@ -275,9 +275,9 @@
     "group": "media",
     "status": "partial",
     "api": [
-      "Existing entity details: image/video metadata only"
+      "Existing entity details: TMDb image paths and paginated galleries"
     ],
-    "proposal": "GET /media/{media_id} with opaque media references, variants, attribution and pagination",
+    "proposal": "TMDb posters, backdrops, portraits and stills are displayed directly from the image CDN. Non-TMDb media and legacy image filtering still need additional contracts.",
     "params": [
       "movieid",
       "serieid",
@@ -312,7 +312,7 @@
     "api": [
       "POST /search/text2sql"
     ],
-    "proposal": "API media, database-enriched legacy cards and evaluation assertion editing remain unavailable.",
+    "proposal": "TMDb pictures are displayed from returned paths or existing entity details. Other legacy enrichment, non-TMDb media and evaluation assertion editing remain unavailable.",
     "params": [
       "search",
       "questionhashed",
@@ -518,7 +518,7 @@
     "api": [
       "GET /locations/{id}"
     ],
-    "proposal": "Structured relation filters, API-served media, private library data, releases/providers and source diagnostics are not all available.",
+    "proposal": "TMDb pictures are displayed from API paths. Structured relation filters, non-TMDb media, private library data, releases/providers and source diagnostics are not all available.",
     "params": [
       "locationid"
     ],
@@ -532,7 +532,7 @@
     "api": [
       "GET /movements/{id}"
     ],
-    "proposal": "Structured relation filters, API-served media, private library data, releases/providers and source diagnostics are not all available.",
+    "proposal": "TMDb pictures are displayed from API paths. Structured relation filters, non-TMDb media, private library data, releases/providers and source diagnostics are not all available.",
     "params": [
       "movementid"
     ],
@@ -607,7 +607,7 @@
     "api": [
       "GET /movies/{id}"
     ],
-    "proposal": "Structured relation filters, API-served media, private library data, releases/providers and source diagnostics are not all available.",
+    "proposal": "TMDb pictures are displayed from API paths. Structured relation filters, non-TMDb media, private library data, releases/providers and source diagnostics are not all available.",
     "params": [
       "movieid",
       "imdbid",
@@ -643,7 +643,7 @@
     "api": [
       "GET /networks/{id}"
     ],
-    "proposal": "Structured relation filters, API-served media, private library data, releases/providers and source diagnostics are not all available.",
+    "proposal": "TMDb pictures are displayed from API paths. Structured relation filters, non-TMDb media, private library data, releases/providers and source diagnostics are not all available.",
     "params": [
       "networkid"
     ],
@@ -666,7 +666,7 @@
     "api": [
       "GET /nominations/{id}"
     ],
-    "proposal": "Structured relation filters, API-served media, private library data, releases/providers and source diagnostics are not all available.",
+    "proposal": "TMDb pictures are displayed from API paths. Structured relation filters, non-TMDb media, private library data, releases/providers and source diagnostics are not all available.",
     "params": [
       "nominationid"
     ],
@@ -737,7 +737,7 @@
     "api": [
       "GET /persons/{id}"
     ],
-    "proposal": "Structured relation filters, API-served media, private library data, releases/providers and source diagnostics are not all available.",
+    "proposal": "TMDb pictures are displayed from API paths. Structured relation filters, non-TMDb media, private library data, releases/providers and source diagnostics are not all available.",
     "params": [
       "personid",
       "imdbid"
@@ -759,7 +759,7 @@
     "group": "media",
     "status": "prototype",
     "api": [],
-    "proposal": "Legacy prototype hard-codes movie 11 backdrops. Replace with API media gallery after media contract exists.",
+    "proposal": "Legacy prototype hard-codes movie 11 backdrops. Movie detail pages already display their TMDb poster/backdrop galleries; this fixed wrapper is not a general gallery selector.",
     "params": []
   },
   {
@@ -804,7 +804,7 @@
     "api": [
       "GET /samples"
     ],
-    "proposal": "Public sample/showcase questions, assertion flags and simulated answers are available. API media/synthetic artwork, exact voice-showcase eligibility diagnostics and protected evaluation editing remain pending.",
+    "proposal": "Public samples, simulated answers and TMDb pictures are available. Synthetic artwork, other non-TMDb media, exact voice-showcase eligibility diagnostics and protected evaluation editing remain pending.",
     "params": [
       "set",
       "apicolor",
@@ -817,9 +817,9 @@
     "group": "media",
     "status": "partial",
     "api": [
-      "Existing entity details: image/video metadata only"
+      "Existing entity details: TMDb image paths and paginated galleries"
     ],
-    "proposal": "GET /media/{media_id} with opaque media references, variants, attribution and pagination",
+    "proposal": "TMDb posters, backdrops, portraits and stills are displayed directly from the image CDN. Non-TMDb media and legacy image filtering still need additional contracts.",
     "params": [
       "serieid",
       "season",
@@ -835,7 +835,7 @@
     "api": [
       "GET /seasons/{id_serie}/{season_number}"
     ],
-    "proposal": "Structured relation filters, API-served media, private library data, releases/providers and source diagnostics are not all available.",
+    "proposal": "TMDb pictures are displayed from API paths. Structured relation filters, non-TMDb media, private library data, releases/providers and source diagnostics are not all available.",
     "params": [
       "serieid",
       "season"
@@ -861,7 +861,7 @@
     "api": [
       "GET /series/{id}"
     ],
-    "proposal": "Structured relation filters, API-served media, private library data, releases/providers and source diagnostics are not all available.",
+    "proposal": "TMDb pictures are displayed from API paths. Structured relation filters, non-TMDb media, private library data, releases/providers and source diagnostics are not all available.",
     "params": [
       "serieid",
       "imdbid",
@@ -906,7 +906,7 @@
     "api": [
       "GET /collections/{id}"
     ],
-    "proposal": "Structured relation filters, API-served media, private library data, releases/providers and source diagnostics are not all available.",
+    "proposal": "TMDb pictures are displayed from API paths. Structured relation filters, non-TMDb media, private library data, releases/providers and source diagnostics are not all available.",
     "params": [
       "collectionid"
     ],
@@ -920,7 +920,7 @@
     "api": [
       "GET /lists/{id}"
     ],
-    "proposal": "Structured relation filters, API-served media, private library data, releases/providers and source diagnostics are not all available.",
+    "proposal": "TMDb pictures are displayed from API paths. Structured relation filters, non-TMDb media, private library data, releases/providers and source diagnostics are not all available.",
     "params": [
       "listid"
     ],
@@ -934,7 +934,7 @@
     "api": [
       "GET /topics/{id}"
     ],
-    "proposal": "Structured relation filters, API-served media, private library data, releases/providers and source diagnostics are not all available.",
+    "proposal": "TMDb pictures are displayed from API paths. Structured relation filters, non-TMDb media, private library data, releases/providers and source diagnostics are not all available.",
     "params": [
       "topicid"
     ],
@@ -948,7 +948,7 @@
     "api": [
       "GET /technicals/{id}"
     ],
-    "proposal": "Structured relation filters, API-served media, private library data, releases/providers and source diagnostics are not all available.",
+    "proposal": "TMDb pictures are displayed from API paths. Structured relation filters, non-TMDb media, private library data, releases/providers and source diagnostics are not all available.",
     "params": [
       "technicalid"
     ],
@@ -962,7 +962,7 @@
     "api": [
       "POST /search/text2sql"
     ],
-    "proposal": "API media, database-enriched legacy cards and evaluation assertion editing remain unavailable.",
+    "proposal": "TMDb pictures are displayed from returned paths or existing entity details. Other legacy enrichment, non-TMDb media and evaluation assertion editing remain unavailable.",
     "params": [
       "search",
       "questionhashed",
@@ -1064,9 +1064,9 @@
     "group": "media",
     "status": "partial",
     "api": [
-      "Existing entity details: image/video metadata only"
+      "Existing entity details: video metadata and source links"
     ],
-    "proposal": "GET /media/{media_id} with opaque media references, variants, attribution and pagination",
+    "proposal": "Video playback remains unavailable. An authorized video resource and playback contract is still required.",
     "params": [
       "movieid",
       "serieid",

@@ -1,6 +1,6 @@
 # t2s-web
 
-A web client for **fastapi-text2sql** that runs without MariaDB. It uses browser-native JavaScript and a small Node.js gateway. Only the gateway knows the API credentials.
+A web client for **fastapi-text2sql** that runs without MariaDB. It uses browser-native JavaScript and a small Node.js gateway. Only the gateway knows the API credentials. Business data comes through the API; public TMDb images may load directly from `https://image.tmdb.org` using image paths returned by the API.
 
 The migration target is all **90 PHP routes in `tmdb-front/html/tmdb/`**. This initial implementation is **not full feature parity**: it uses today's API for search, photos, samples and 18 entity-detail families, while the migration catalogue explains the remaining API dependencies. The old front and API are unchanged.
 
@@ -25,14 +25,16 @@ The client starts without configuration so its settings and migration catalogue 
 - API response rendering, copied diagnostics and SQL, mixed/scalar results and honest pagination without invented totals.
 - Raw JPEG/PNG/WebP upload and subsequent `image_ref` search, including preview and removal. Upload alone does not run recognition.
 - Sample/showcase browsing with category and expected-result information.
-- Existing API entity details and targeted relationship pagination, Wikipedia text and attribution, media metadata and freshness.
+- Existing API entity details and targeted relationship pagination, Wikipedia text and attribution, TMDb images from API-provided paths, media metadata and freshness.
 - A searchable migration catalogue that retains all legacy routes, including unavailable wrappers and the historical fixed-poster prototype.
 
 Some old detail sections and private actions are unavailable because their API contracts do not exist. In particular: full browse/search/discover/trending, raw Wikidata/source inspection, watch-provider/release views, private Plex/releases/subtitles, imports, tagging/VIP/completion edits, evaluation edits and collector supervision. Do not treat an API-backed base detail as complete parity with the PHP page.
 
-### Strict API-only media
+### Images and other media
 
-The existing API returns many catalogue image paths and external video URLs but serves binary bytes only for uploaded vision images. This client therefore shows catalogue media metadata/placeholders and optional source links; it does not hotlink CDN images or embed YouTube. The proposed opaque `/media/{media_id}` contract is recorded in the backlog and is **not called or implemented**. Standard Wikipedia text already exists in the detail API and does not require a new endpoint.
+Public TMDb images are an authorized exception to the API-only business-data boundary. The browser may load them directly from **`https://image.tmdb.org`** using poster, backdrop, portrait, still or logo paths supplied by existing API responses. This needs no TMDb API key, direct TMDb metadata request or new binary-media endpoint. Missing paths and failed images retain named placeholders; the client does not invent an image from an entity ID.
+
+Uploaded vision photos remain private API resources: they are uploaded and retrieved through the authenticated gateway, with the API's retention metadata. Other media hosts, third-party video players and private media downloads remain outside this exception. The proposed opaque `/media/{media_id}` contract is still relevant for unsupported non-TMDb or protected resources, but is **not a prerequisite for public TMDb images** and is not called or implemented. Standard Wikipedia text already exists in the detail API and does not require a new endpoint.
 
 ### Pagination and identity
 
@@ -42,7 +44,7 @@ Detail pagination requires `collection=...`; `page=2` alone does not advance eve
 
 ## Security and configuration boundary
 
-The gateway permits only existing API routes used by the client, with bounded JSON/image payloads, validated query parameters, deadlines and no upstream redirect following. It injects `X-API-Key` server-side and does not forward browser cookies, authorization headers or an arbitrary target URL. Static serving is allowlisted. The content security policy restricts automatic data/media loads to the same origin.
+The gateway permits only existing API routes used by the client, with bounded JSON/image payloads, validated query parameters, deadlines and no upstream redirect following. It injects `X-API-Key` server-side and does not forward browser cookies, authorization headers or an arbitrary target URL. Static serving is allowlisted. The content security policy keeps business requests on the same origin and allows the TMDb HTTPS image host for images. This exception does not expose the API key or turn the gateway into an arbitrary media proxy.
 
 This is not an Internet-facing authentication service. Before any remote deployment, put it behind the site's authenticated reverseproxy and review per-user permissions, quotas and private capabilities. An API key is a service credential, not proof that every visitor is entitled to private operations. Those operations remain unsupported until the API supplies proper authorization contracts.
 
@@ -83,6 +85,8 @@ npm run check
 npm test
 ```
 
-Tests use `node:test` and a local synthetic API fixture. They verify gateway contracts, bounded inputs, credential isolation and response handling without a database, model call or production API. On 2026-10-02, syntax checks and all 26 tests passed, including prefix routing and isolation. Browser checks covered text/photo search, upload metadata, HTTP-200 business errors, details, relationship paging, EN/FR settings persistence, nested samples, legacy URLs, inert edits and a 390-pixel mobile layout. Core controls are bilingual; technical metadata and migration descriptions remain partly English.
+Tests use `node:test` and a local synthetic API fixture. They verify gateway contracts, bounded inputs, credential isolation, response handling and image URLs without a database, model call or production API. On 2026-10-02, syntax checks and all **35 tests** passed: 18 gateway, 9 API-helper and 8 media tests. Browser checks covered text/photo search, upload metadata, HTTP-200 business errors, details, relationship paging, EN/FR settings persistence, nested samples, legacy URLs, inert edits and a 390-pixel mobile layout. Core controls are bilingual; technical metadata and migration descriptions remain partly English.
 
-Local API configuration has been confirmed by the owner. VPS activation and container/nginx runtime checks must still be completed on the host; adding deployment files alone does not make the URL live. API proposals are documentation only. Existing legacy broken routes require an explicit product decision before they can count as replaced functionality.
+Additional browser checks used an isolated instance mounted at `/t2s-web/` with synthetic API responses and real public TMDb image downloads. They confirmed loaded `w342` images, lazy loading and `no-referrer`, one existing-detail request to resolve a missing card image path, a named placeholder after an intentional image 404, detail hero/gallery images and images in expanded examples and list views. No production API or model call was made.
+
+The owner confirmed local API configuration and subsequently reported the VPS deployment working. The agent did not independently verify the production Docker/nginx runtime through SSH; local test results and the owner's deployment confirmation are separate evidence. API proposals are documentation only. Existing legacy broken routes require an explicit product decision before they can count as replaced functionality.

@@ -21,6 +21,18 @@ test('safe config exposes deployment names, never key or upstream URL',async t=>
   const s=await setup(t);const r=await fetch(s.base+'/client-config');const text=await r.text();
   assert.deepEqual(JSON.parse(text).apiColors,['blue']);assert.ok(!text.includes('test-only-key'));assert.ok(!text.includes('/root'));assert.match(r.headers.get('content-security-policy'),/connect-src 'self'/);
 });
+test('only TMDb image delivery is opened externally; business requests stay same-origin',async t=>{
+  const s=await setup(t,{T2S_BASE_PATH:'/t2s-web/'});
+  const response=await fetch(s.base+'/t2s-web/');
+  const policy=Object.fromEntries(response.headers.get('content-security-policy').split(';').map(part=>part.trim().split(/\s+/)).filter(([key])=>key).map(([key,...sources])=>[key,sources]));
+  assert.deepEqual(policy['img-src'],["'self'",'blob:','data:','https://image.tmdb.org']);
+  assert.deepEqual(policy['connect-src'],["'self'"]);
+  assert.deepEqual(policy['frame-src'],["'none'"]);
+  const config=await(await fetch(s.base+'/t2s-web/client-config')).json();
+  assert.equal(config.mediaPolicy,'api-data-tmdb-cdn-images');
+  assert.equal((await fetch(s.base+'/t2s-web/api/media/anything')).status,404);
+  assert.equal(s.calls.length,0);
+});
 test('typed detail relation query reaches existing route unchanged',async t=>{
   const s=await setup(t);const r=await fetch(s.base+'/api/persons/202?ui_language=fr&collection=movie_cast&page=2&rows_per_page=50');
   assert.equal(r.status,200);assert.equal(s.calls[0].query.collection,'movie_cast');assert.equal(s.calls[0].query.page,'2');
@@ -105,7 +117,7 @@ test('prefixed assets, configuration, health and legacy entries share an isolate
     const r=await fetch(new URL(asset,entry.url));
     assert.equal(r.status,200,asset);
   }
-  for(const file of ['app.mjs','api.mjs','styles.css','legacy-routes.json','movie.php?movieid=101','t2slist.php?listid=2']) assert.equal((await fetch(s.base+'/t2s-web/'+file)).status,200,file);
+  for(const file of ['app.mjs','api.mjs','media.mjs','styles.css','legacy-routes.json','movie.php?movieid=101','t2slist.php?listid=2']) assert.equal((await fetch(s.base+'/t2s-web/'+file)).status,200,file);
   assert.equal((await (await fetch(s.base+'/t2s-web/client-config')).json()).basePath,'/t2s-web/');
   assert.equal((await (await fetch(s.base+'/t2s-web/health')).json()).status,'ok');
   for(const path of ['/','/health','/app.mjs','/client-config','/api/movies/101','/t2s-web-other/','/t2s-web/.env','/t2s-web/api/movies%2F101']) assert.ok((await fetch(s.base+path)).status>=400,path);

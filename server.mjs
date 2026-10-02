@@ -16,6 +16,7 @@ const STATIC = new Map([
   ['/index.html', ['index.html','text/html; charset=utf-8']],
   ['/app.mjs', ['app.mjs','text/javascript; charset=utf-8']],
   ['/api.mjs', ['api.mjs','text/javascript; charset=utf-8']],
+  ['/media.mjs', ['media.mjs','text/javascript; charset=utf-8']],
   ['/styles.css', ['styles.css','text/css; charset=utf-8']],
   ['/legacy-routes.json', ['legacy-routes.json','application/json; charset=utf-8']],
 ]);
@@ -25,7 +26,7 @@ function headers(res) {
   res.setHeader('Cache-Control','no-store');
   res.setHeader('X-Content-Type-Options','nosniff');
   res.setHeader('Referrer-Policy','same-origin');
-  res.setHeader('Content-Security-Policy', "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' blob: data:; media-src 'self' blob:; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'");
+  res.setHeader('Content-Security-Policy', "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' blob: data: https://image.tmdb.org; media-src 'self' blob:; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'");
 }
 function json(res,status,value) {
   res.writeHead(status,{'Content-Type':'application/json; charset=utf-8'});
@@ -115,7 +116,7 @@ export function createApp(config=loadConfig()) {
         apiColors:Object.entries(config.upstreams).filter(([,v])=>v.key).map(([k])=>k),
         configured:Object.values(config.upstreams).some(v=>v.key),
         maxImageBytes:MAX_UPLOAD,
-        mediaPolicy:'api-only',
+        mediaPolicy:'api-data-tmdb-cdn-images',
       });
       if(pathname.startsWith('/api/')) {
         sameOrigin(req);
