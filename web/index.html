@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><title>T2S · Cinema explorer</title><link rel="stylesheet" href="./styles.css"><script type="module" src="./app.mjs"></script></head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="header"><a href="#/search" class="brand"><span class="brand-mark">t2s</span><span>Cinema explorer<small>Powered by fastapi-text2sql</small></span></a><nav aria-label="Main navigation"><a href="#/search" data-i18n="search">Search</a><a href="#/samples" data-i18n="examples">Examples</a><a href="#/catalogue" data-i18n="catalogue">Feature catalogue</a><a href="#/settings" data-i18n="settings">Settings</a></nav><label class="language-label"><span class="sr-only">Language</span><select id="language"><option value="en">EN</option><option value="fr">FR</option></select></label></header>
+  <div class="connection"><span class="dot" id="connection-dot"></span><span id="connection-label">Checking configuration…</span><span class="api-only">API only · No database connection</span></div>
+  <main id="main" tabindex="-1"></main>
+  <footer><span>T2S web · API client</span><a href="#/catalogue">Migration coverage & API proposals</a><span>Catalogue images await an API media endpoint.</span></footer>
+  <div id="live-status" class="sr-only" role="status" aria-live="polite"></div>
+</body></html>

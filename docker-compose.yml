@@ -1,0 +1,31 @@
+services:
+  t2s-web:
+    build: .
+    image: t2s-web:local
+    container_name: t2s-web
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      HOST: 0.0.0.0
+      PORT: "4180"
+      T2S_BASE_PATH: /t2s-web/
+    expose:
+      - "4180"
+    networks:
+      - reverseproxy
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=16m
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  reverseproxy:
+    external: true

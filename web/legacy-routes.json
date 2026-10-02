@@ -1,0 +1,1098 @@
+[
+  {
+    "file": "about.php",
+    "title": "about",
+    "group": "documentation",
+    "status": "supported",
+    "api": [],
+    "proposal": "Local application and migration documentation",
+    "params": []
+  },
+  {
+    "file": "award.php",
+    "title": "award",
+    "group": "details",
+    "status": "partial",
+    "api": [
+      "GET /awards/{id}"
+    ],
+    "proposal": "Structured relation filters, API-served media, private library data, releases/providers and source diagnostics are not all available.",
+    "params": [
+      "awardid"
+    ],
+    "kind": "award"
+  },
+  {
+    "file": "character-search.php",
+    "title": "character search",
+    "group": "specialized",
+    "status": "waiting",
+    "api": [],
+    "proposal": "GET /catalog/{entity}?q= with deterministic matching, sorting and filters",
+    "params": [
+      "search"
+    ]
+  },
+  {
+    "file": "character.php",
+    "title": "character",
+    "group": "details",
+    "status": "waiting",
+    "api": [],
+    "proposal": "GET /characters?name= with a string character name and paginated matching credits",
+    "params": [
+      "character"
+    ]
+  },
+  {
+    "file": "collection-download-completed.php",
+    "title": "collection download completed",
+    "group": "mutations",
+    "status": "waiting",
+    "api": [],
+    "proposal": "Protected POST/PATCH jobs with explicit permissions, validation, idempotency, audit and status; never replay legacy GET writes",
+    "params": [
+      "collectionid"
+    ]
+  },
+  {
+    "file": "collection-load.php",
+    "title": "collection load",
+    "group": "broken",
+    "status": "legacy-unavailable",
+    "api": [],
+    "proposal": "Legacy wrapper includes a missing lib/*.inc.php. No working behavior to duplicate; define the intended feature before proposing an API.",
+    "params": []
+  },
+  {
+    "file": "collection-search.php",
+    "title": "collection search",
+    "group": "specialized",
+    "status": "waiting",
+    "api": [],
+    "proposal": "GET /catalog/{entity}?q= with deterministic matching, sorting and filters",
+    "params": [
+      "search"
+    ]
+  },
+  {
+    "file": "collection.php",
+    "title": "collection",
+    "group": "details",
+    "status": "waiting",
+    "api": [],
+    "proposal": "GET /tmdb/collections/{id}; raw TMDb objects must not be confused with T2S entities",
+    "params": [
+      "collectionid"
+    ]
+  },
+  {
+    "file": "collections.php",
+    "title": "collections",
+    "group": "inventories",
+    "status": "waiting",
+    "api": [],
+    "proposal": "GET /catalog/{entity} with validated filters, sort, q, pagination and counts",
+    "params": []
+  },
+  {
+    "file": "companies.php",
+    "title": "companies",
+    "group": "inventories",
+    "status": "waiting",
+    "api": [],
+    "proposal": "GET /catalog/{entity} with validated filters, sort, q, pagination and counts",
+    "params": []
+  },
+  {
+    "file": "company-download-completed.php",
+    "title": "company download completed",
+    "group": "mutations",
+    "status": "waiting",
+    "api": [],
+    "proposal": "Protected POST/PATCH jobs with explicit permissions, validation, idempotency, audit and status; never replay legacy GET writes",
+    "params": [
+      "companyid"
+    ]
+  },
+  {
+    "file": "company-search.php",
+    "title": "company search",
+    "group": "specialized",
+    "status": "waiting",
+    "api": [],
+    "proposal": "GET /catalog/{entity}?q= with deterministic matching, sorting and filters",
+    "params": [
+      "search"
+    ]
+  },
+  {
+    "file": "company.php",
+    "title": "company",
+    "group": "details",
+    "status": "partial",
+    "api": [
+      "GET /companies/{id}"
+    ],
+    "proposal": "Structured relation filters, API-served media, private library data, releases/providers and source diagnostics are not all available.",
+    "params": [
+      "companyid"
+    ],
+    "kind": "company"
+  },
+  {
+    "file": "contact.php",
+    "title": "contact",
+    "group": "broken",
+    "status": "legacy-unavailable",
+    "api": [],
+    "proposal": "Legacy wrapper includes a missing lib/*.inc.php. No working behavior to duplicate; define the intended feature before proposing an API.",
+    "params": []
+  },
+  {
+    "file": "country.php",
+    "title": "country",
+    "group": "broken",
+    "status": "legacy-unavailable",
+    "api": [],
+    "proposal": "Legacy wrapper includes a missing lib/*.inc.php. No working behavior to duplicate; define the intended feature before proposing an API.",
+    "params": []
+  },
+  {
+    "file": "criterion.php",
+    "title": "criterion",
+    "group": "details",
+    "status": "waiting",
+    "api": [],
+    "proposal": "Expose the fixed Criterion collection through a deterministic catalogue contract after its selection rules are specified",
+    "params": []
+  },
+  {
+    "file": "death.php",
+    "title": "death",
+    "group": "details",
+    "status": "partial",
+    "api": [
+      "GET /deaths/{id}"
+    ],
+    "proposal": "Structured relation filters, API-served media, private library data, releases/providers and source diagnostics are not all available.",
+    "params": [
+      "deathid"
+    ],
+    "kind": "death"
+  },
+  {
+    "file": "download-completed.php",
+    "title": "download completed",
+    "group": "inventories",
+    "status": "waiting",
+    "api": [],
+    "proposal": "GET /operations/download-history",
+    "params": []
+  },
+  {
+    "file": "episode-images.php",
+    "title": "episode images",
+    "group": "media",
+    "status": "partial",
+    "api": [
+      "Existing entity details: image/video metadata only"
+    ],
+    "proposal": "GET /media/{media_id} with opaque media references, variants, attribution and pagination",
+    "params": [
+      "serieid",
+      "season",
+      "episode",
+      "imagetype",
+      "lang"
+    ]
+  },
+  {
+    "file": "episode.php",
+    "title": "episode",
+    "group": "details",
+    "status": "partial",
+    "api": [
+      "GET /episodes/{id_serie}/{season_number}/{episode_number}"
+    ],
+    "proposal": "Structured relation filters, API-served media, private library data, releases/providers and source diagnostics are not all available.",
+    "params": [
+      "serieid",
+      "season",
+      "episode"
+    ],
+    "kind": "episode"
+  },
+  {
+    "file": "genre.php",
+    "title": "genre",
+    "group": "details",
+    "status": "partial",
+    "api": [
+      "GET /genres/{id}"
+    ],
+    "proposal": "Structured relation filters, API-served media, private library data, releases/providers and source diagnostics are not all available.",
+    "params": [
+      "genreid"
+    ],
+    "kind": "genre"
+  },
+  {
+    "file": "genres.php",
+    "title": "genres",
+    "group": "inventories",
+    "status": "waiting",
+    "api": [],
+    "proposal": "GET /catalog/{entity} with validated filters, sort, q, pagination and counts",
+    "params": []
+  },
+  {
+    "file": "group.php",
+    "title": "group",
+    "group": "details",
+    "status": "partial",
+    "api": [
+      "GET /groups/{id}"
+    ],
+    "proposal": "Structured relation filters, API-served media, private library data, releases/providers and source diagnostics are not all available.",
+    "params": [
+      "groupid"
+    ],
+    "kind": "group"
+  },
+  {
+    "file": "help.php",
+    "title": "help",
+    "group": "broken",
+    "status": "legacy-unavailable",
+    "api": [],
+    "proposal": "Legacy wrapper includes a missing lib/*.inc.php. No working behavior to duplicate; define the intended feature before proposing an API.",
+    "params": []
+  },
+  {
+    "file": "images.php",
+    "title": "images",
+    "group": "media",
+    "status": "partial",
+    "api": [
+      "Existing entity details: image/video metadata only"
+    ],
+    "proposal": "GET /media/{media_id} with opaque media references, variants, attribution and pagination",
+    "params": [
+      "movieid",
+      "serieid",
+      "personid",
+      "collectionid",
+      "companyid",
+      "networkid",
+      "imagetype",
+      "lang"
+    ]
+  },
+  {
+    "file": "imdb-movie-ids.php",
+    "title": "imdb movie ids",
+    "group": "specialized",
+    "status": "waiting",
+    "api": [],
+    "proposal": "POST /identifiers/resolve-batch and protected list-update preview/commit jobs",
+    "params": [
+      "string",
+      "listidnew",
+      "listiddropdown",
+      "loadlist",
+      "update"
+    ]
+  },
+  {
+    "file": "index.php",
+    "title": "index",
+    "group": "search",
+    "status": "partial",
+    "api": [
+      "POST /search/text2sql"
+    ],
+    "proposal": "API media, database-enriched legacy cards and evaluation assertion editing remain unavailable.",
+    "params": [
+      "search",
+      "questionhashed",
+      "imageref",
+      "page",
+      "render",
+      "apicolor",
+      "eemodel",
+      "t2smodel",
+      "complexmodel",
+      "resultentitymodel",
+      "answermodel",
+      "evalid",
+      "setassertions",
+      "loadmore"
+    ]
+  },
+  {
+    "file": "intro.php",
+    "title": "intro",
+    "group": "broken",
+    "status": "legacy-unavailable",
+    "api": [],
+    "proposal": "Legacy wrapper includes a missing lib/*.inc.php. No working behavior to duplicate; define the intended feature before proposing an API.",
+    "params": []
+  },
+  {
+    "file": "job-search.php",
+    "title": "job search",
+    "group": "specialized",
+    "status": "waiting",
+    "api": [],
+    "proposal": "GET /catalog/{entity}?q= with deterministic matching, sorting and filters",
+    "params": [
+      "search"
+    ]
+  },
+  {
+    "file": "job.php",
+    "title": "job",
+    "group": "details",
+    "status": "waiting",
+    "api": [],
+    "proposal": "GET /jobs?name= with a string job name and paginated matching credits",
+    "params": [
+      "job"
+    ]
+  },
+  {
+    "file": "json.php",
+    "title": "json",
+    "group": "operations",
+    "status": "waiting",
+    "api": [],
+    "proposal": "GET /evaluations/executions/{id} with authorized result JSON",
+    "params": [
+      "t2sevalexecid",
+      "format"
+    ]
+  },
+  {
+    "file": "keyword-download-completed.php",
+    "title": "keyword download completed",
+    "group": "mutations",
+    "status": "waiting",
+    "api": [],
+    "proposal": "Protected POST/PATCH jobs with explicit permissions, validation, idempotency, audit and status; never replay legacy GET writes",
+    "params": [
+      "keywordid"
+    ]
+  },
+  {
+    "file": "keyword-search.php",
+    "title": "keyword search",
+    "group": "specialized",
+    "status": "waiting",
+    "api": [],
+    "proposal": "GET /catalog/{entity}?q= with deterministic matching, sorting and filters",
+    "params": [
+      "search"
+    ]
+  },
+  {
+    "file": "keyword-use-for-tagging.php",
+    "title": "keyword use for tagging",
+    "group": "mutations",
+    "status": "waiting",
+    "api": [],
+    "proposal": "Protected POST/PATCH jobs with explicit permissions, validation, idempotency, audit and status; never replay legacy GET writes",
+    "params": [
+      "keywordid",
+      "usefortagging",
+      "rows"
+    ]
+  },
+  {
+    "file": "keyword.php",
+    "title": "keyword",
+    "group": "details",
+    "status": "waiting",
+    "api": [],
+    "proposal": "GET /keywords/{id} plus deterministic related catalogue",
+    "params": [
+      "keywordid",
+      "rows"
+    ]
+  },
+  {
+    "file": "lemma-search.php",
+    "title": "lemma search",
+    "group": "specialized",
+    "status": "waiting",
+    "api": [],
+    "proposal": "GET /catalog/{entity}?q= with deterministic matching, sorting and filters",
+    "params": [
+      "search"
+    ]
+  },
+  {
+    "file": "lemma.php",
+    "title": "lemma",
+    "group": "details",
+    "status": "waiting",
+    "api": [],
+    "proposal": "GET /lemmas/{id} plus deterministic related catalogue",
+    "params": [
+      "lemmaid"
+    ]
+  },
+  {
+    "file": "list-download-completed.php",
+    "title": "list download completed",
+    "group": "mutations",
+    "status": "waiting",
+    "api": [],
+    "proposal": "Protected POST/PATCH jobs with explicit permissions, validation, idempotency, audit and status; never replay legacy GET writes",
+    "params": [
+      "listid"
+    ]
+  },
+  {
+    "file": "list-load.php",
+    "title": "list load",
+    "group": "mutations",
+    "status": "waiting",
+    "api": [],
+    "proposal": "Protected POST/PATCH jobs with explicit permissions, validation, idempotency, audit and status; never replay legacy GET writes",
+    "params": [
+      "listid",
+      "display"
+    ]
+  },
+  {
+    "file": "list-search.php",
+    "title": "list search",
+    "group": "specialized",
+    "status": "waiting",
+    "api": [],
+    "proposal": "GET /catalog/{entity}?q= with deterministic matching, sorting and filters",
+    "params": [
+      "search"
+    ]
+  },
+  {
+    "file": "list-use-for-tagging.php",
+    "title": "list use for tagging",
+    "group": "mutations",
+    "status": "waiting",
+    "api": [],
+    "proposal": "Protected POST/PATCH jobs with explicit permissions, validation, idempotency, audit and status; never replay legacy GET writes",
+    "params": [
+      "listid",
+      "usefortagging"
+    ]
+  },
+  {
+    "file": "list.php",
+    "title": "list",
+    "group": "details",
+    "status": "waiting",
+    "api": [],
+    "proposal": "GET /tmdb/lists/{id}; raw TMDb objects must not be confused with T2S entities",
+    "params": [
+      "listid",
+      "string",
+      "val"
+    ]
+  },
+  {
+    "file": "lists.php",
+    "title": "lists",
+    "group": "inventories",
+    "status": "waiting",
+    "api": [],
+    "proposal": "GET /catalog/{entity} with validated filters, sort, q, pagination and counts",
+    "params": []
+  },
+  {
+    "file": "location.php",
+    "title": "location",
+    "group": "details",
+    "status": "partial",
+    "api": [
+      "GET /locations/{id}"
+    ],
+    "proposal": "Structured relation filters, API-served media, private library data, releases/providers and source diagnostics are not all available.",
+    "params": [
+      "locationid"
+    ],
+    "kind": "location"
+  },
+  {
+    "file": "movement.php",
+    "title": "movement",
+    "group": "details",
+    "status": "partial",
+    "api": [
+      "GET /movements/{id}"
+    ],
+    "proposal": "Structured relation filters, API-served media, private library data, releases/providers and source diagnostics are not all available.",
+    "params": [
+      "movementid"
+    ],
+    "kind": "movement"
+  },
+  {
+    "file": "movie-ai-search.php",
+    "title": "movie ai search",
+    "group": "specialized",
+    "status": "waiting",
+    "api": [],
+    "proposal": "GET /semantic/movies and /movies/{id}/semantic-similar with calibrated scores",
+    "params": [
+      "search"
+    ]
+  },
+  {
+    "file": "movie-discover.php",
+    "title": "movie discover",
+    "group": "specialized",
+    "status": "waiting",
+    "api": [],
+    "proposal": "GET /catalog/movies with structured year/language/genre/cast/crew filters",
+    "params": [
+      "year",
+      "origlang",
+      "genres",
+      "cast",
+      "crew",
+      "val"
+    ]
+  },
+  {
+    "file": "movie-list-search.php",
+    "title": "movie list search",
+    "group": "specialized",
+    "status": "waiting",
+    "api": [],
+    "proposal": "GET /movies/{id}/tmdb-lists with pagination: discover TMDb user lists containing this movie",
+    "params": [
+      "movieid"
+    ]
+  },
+  {
+    "file": "movie-load.php",
+    "title": "movie load",
+    "group": "mutations",
+    "status": "waiting",
+    "api": [],
+    "proposal": "Protected POST/PATCH jobs with explicit permissions, validation, idempotency, audit and status; never replay legacy GET writes",
+    "params": [
+      "movieid",
+      "display"
+    ]
+  },
+  {
+    "file": "movie-search.php",
+    "title": "movie search",
+    "group": "specialized",
+    "status": "waiting",
+    "api": [],
+    "proposal": "GET /catalog/{entity}?q= with deterministic matching, sorting and filters",
+    "params": [
+      "search"
+    ]
+  },
+  {
+    "file": "movie.php",
+    "title": "movie",
+    "group": "details",
+    "status": "partial",
+    "api": [
+      "GET /movies/{id}"
+    ],
+    "proposal": "Structured relation filters, API-served media, private library data, releases/providers and source diagnostics are not all available.",
+    "params": [
+      "movieid",
+      "imdbid",
+      "watch_country"
+    ],
+    "kind": "movie"
+  },
+  {
+    "file": "movies.php",
+    "title": "movies",
+    "group": "inventories",
+    "status": "waiting",
+    "api": [],
+    "proposal": "GET /catalog/{entity} with validated filters, sort, q, pagination and counts",
+    "params": []
+  },
+  {
+    "file": "network-download-completed.php",
+    "title": "network download completed",
+    "group": "mutations",
+    "status": "waiting",
+    "api": [],
+    "proposal": "Protected POST/PATCH jobs with explicit permissions, validation, idempotency, audit and status; never replay legacy GET writes",
+    "params": [
+      "networkid"
+    ]
+  },
+  {
+    "file": "network.php",
+    "title": "network",
+    "group": "details",
+    "status": "partial",
+    "api": [
+      "GET /networks/{id}"
+    ],
+    "proposal": "Structured relation filters, API-served media, private library data, releases/providers and source diagnostics are not all available.",
+    "params": [
+      "networkid"
+    ],
+    "kind": "network"
+  },
+  {
+    "file": "networks.php",
+    "title": "networks",
+    "group": "inventories",
+    "status": "waiting",
+    "api": [],
+    "proposal": "GET /catalog/{entity} with validated filters, sort, q, pagination and counts",
+    "params": []
+  },
+  {
+    "file": "nomination.php",
+    "title": "nomination",
+    "group": "details",
+    "status": "partial",
+    "api": [
+      "GET /nominations/{id}"
+    ],
+    "proposal": "Structured relation filters, API-served media, private library data, releases/providers and source diagnostics are not all available.",
+    "params": [
+      "nominationid"
+    ],
+    "kind": "nomination"
+  },
+  {
+    "file": "origlang.php",
+    "title": "origlang",
+    "group": "details",
+    "status": "waiting",
+    "api": [],
+    "proposal": "GET /catalog/{entity}?original_language= with the original-language string key",
+    "params": [
+      "origlang"
+    ]
+  },
+  {
+    "file": "person-download-completed.php",
+    "title": "person download completed",
+    "group": "mutations",
+    "status": "waiting",
+    "api": [],
+    "proposal": "Protected POST/PATCH jobs with explicit permissions, validation, idempotency, audit and status; never replay legacy GET writes",
+    "params": [
+      "personid"
+    ]
+  },
+  {
+    "file": "person-load.php",
+    "title": "person load",
+    "group": "mutations",
+    "status": "waiting",
+    "api": [],
+    "proposal": "Protected POST/PATCH jobs with explicit permissions, validation, idempotency, audit and status; never replay legacy GET writes",
+    "params": [
+      "personid",
+      "display"
+    ]
+  },
+  {
+    "file": "person-search.php",
+    "title": "person search",
+    "group": "specialized",
+    "status": "waiting",
+    "api": [],
+    "proposal": "GET /catalog/{entity}?q= with deterministic matching, sorting and filters",
+    "params": [
+      "search",
+      "filter"
+    ]
+  },
+  {
+    "file": "person-set-vip.php",
+    "title": "person set vip",
+    "group": "mutations",
+    "status": "waiting",
+    "api": [],
+    "proposal": "Protected POST/PATCH jobs with explicit permissions, validation, idempotency, audit and status; never replay legacy GET writes",
+    "params": [
+      "personid"
+    ]
+  },
+  {
+    "file": "person.php",
+    "title": "person",
+    "group": "details",
+    "status": "partial",
+    "api": [
+      "GET /persons/{id}"
+    ],
+    "proposal": "Structured relation filters, API-served media, private library data, releases/providers and source diagnostics are not all available.",
+    "params": [
+      "personid",
+      "imdbid"
+    ],
+    "kind": "person"
+  },
+  {
+    "file": "persons.php",
+    "title": "persons",
+    "group": "inventories",
+    "status": "waiting",
+    "api": [],
+    "proposal": "GET /catalog/{entity} with validated filters, sort, q, pagination and counts",
+    "params": []
+  },
+  {
+    "file": "posters.php",
+    "title": "posters",
+    "group": "media",
+    "status": "prototype",
+    "api": [],
+    "proposal": "Legacy prototype hard-codes movie 11 backdrops. Replace with API media gallery after media contract exists.",
+    "params": []
+  },
+  {
+    "file": "properties.php",
+    "title": "properties",
+    "group": "broken",
+    "status": "legacy-unavailable",
+    "api": [],
+    "proposal": "Legacy wrapper includes a missing lib/*.inc.php. No working behavior to duplicate; define the intended feature before proposing an API.",
+    "params": []
+  },
+  {
+    "file": "property.php",
+    "title": "property",
+    "group": "details",
+    "status": "waiting",
+    "api": [],
+    "proposal": "GET /wikidata/properties/{id} and typed statements/qualifiers",
+    "params": [
+      "propertyid"
+    ]
+  },
+  {
+    "file": "provider.php",
+    "title": "provider",
+    "group": "details",
+    "status": "waiting",
+    "api": [],
+    "proposal": "GET /providers/{id} with watch_country and independent movie/series pagination; availability and releases DTOs",
+    "params": [
+      "providerid",
+      "movie_page",
+      "serie_page",
+      "watch_country"
+    ]
+  },
+  {
+    "file": "samples.php",
+    "title": "samples",
+    "group": "search",
+    "status": "partial",
+    "api": [
+      "GET /samples"
+    ],
+    "proposal": "Public sample/showcase questions, assertion flags and simulated answers are available. API media/synthetic artwork, exact voice-showcase eligibility diagnostics and protected evaluation editing remain pending.",
+    "params": [
+      "set",
+      "apicolor",
+      "lang"
+    ]
+  },
+  {
+    "file": "season-images.php",
+    "title": "season images",
+    "group": "media",
+    "status": "partial",
+    "api": [
+      "Existing entity details: image/video metadata only"
+    ],
+    "proposal": "GET /media/{media_id} with opaque media references, variants, attribution and pagination",
+    "params": [
+      "serieid",
+      "season",
+      "imagetype",
+      "lang"
+    ]
+  },
+  {
+    "file": "season.php",
+    "title": "season",
+    "group": "details",
+    "status": "partial",
+    "api": [
+      "GET /seasons/{id_serie}/{season_number}"
+    ],
+    "proposal": "Structured relation filters, API-served media, private library data, releases/providers and source diagnostics are not all available.",
+    "params": [
+      "serieid",
+      "season"
+    ],
+    "kind": "season"
+  },
+  {
+    "file": "serie-search.php",
+    "title": "serie search",
+    "group": "specialized",
+    "status": "waiting",
+    "api": [],
+    "proposal": "GET /catalog/{entity}?q= with deterministic matching, sorting and filters",
+    "params": [
+      "search"
+    ]
+  },
+  {
+    "file": "serie.php",
+    "title": "serie",
+    "group": "details",
+    "status": "partial",
+    "api": [
+      "GET /series/{id}"
+    ],
+    "proposal": "Structured relation filters, API-served media, private library data, releases/providers and source diagnostics are not all available.",
+    "params": [
+      "serieid",
+      "imdbid",
+      "watch_country"
+    ],
+    "kind": "serie"
+  },
+  {
+    "file": "spoklang.php",
+    "title": "spoklang",
+    "group": "broken",
+    "status": "legacy-unavailable",
+    "api": [],
+    "proposal": "Legacy wrapper includes a missing lib/*.inc.php. No working behavior to duplicate; define the intended feature before proposing an API.",
+    "params": []
+  },
+  {
+    "file": "srvvar.php",
+    "title": "srvvar",
+    "group": "operations",
+    "status": "waiting",
+    "api": [],
+    "proposal": "GET /operations/status with liveness, freshness and job progress",
+    "params": []
+  },
+  {
+    "file": "subtitles.php",
+    "title": "subtitles",
+    "group": "media",
+    "status": "waiting",
+    "api": [],
+    "proposal": "GET /subtitles?imdb_id= with authorized subtitle metadata",
+    "params": [
+      "imdbid"
+    ]
+  },
+  {
+    "file": "t2scollection.php",
+    "title": "t2scollection",
+    "group": "details",
+    "status": "partial",
+    "api": [
+      "GET /collections/{id}"
+    ],
+    "proposal": "Structured relation filters, API-served media, private library data, releases/providers and source diagnostics are not all available.",
+    "params": [
+      "collectionid"
+    ],
+    "kind": "collection"
+  },
+  {
+    "file": "t2slist.php",
+    "title": "t2slist",
+    "group": "details",
+    "status": "partial",
+    "api": [
+      "GET /lists/{id}"
+    ],
+    "proposal": "Structured relation filters, API-served media, private library data, releases/providers and source diagnostics are not all available.",
+    "params": [
+      "listid"
+    ],
+    "kind": "list"
+  },
+  {
+    "file": "t2stopic.php",
+    "title": "t2stopic",
+    "group": "details",
+    "status": "partial",
+    "api": [
+      "GET /topics/{id}"
+    ],
+    "proposal": "Structured relation filters, API-served media, private library data, releases/providers and source diagnostics are not all available.",
+    "params": [
+      "topicid"
+    ],
+    "kind": "topic"
+  },
+  {
+    "file": "technical.php",
+    "title": "technical",
+    "group": "details",
+    "status": "partial",
+    "api": [
+      "GET /technicals/{id}"
+    ],
+    "proposal": "Structured relation filters, API-served media, private library data, releases/providers and source diagnostics are not all available.",
+    "params": [
+      "technicalid"
+    ],
+    "kind": "technical"
+  },
+  {
+    "file": "text2sql-search.php",
+    "title": "text2sql search",
+    "group": "search",
+    "status": "partial",
+    "api": [
+      "POST /search/text2sql"
+    ],
+    "proposal": "API media, database-enriched legacy cards and evaluation assertion editing remain unavailable.",
+    "params": [
+      "search",
+      "questionhashed",
+      "imageref",
+      "page",
+      "render",
+      "apicolor",
+      "eemodel",
+      "t2smodel",
+      "complexmodel",
+      "resultentitymodel",
+      "answermodel",
+      "evalid",
+      "setassertions",
+      "loadmore"
+    ]
+  },
+  {
+    "file": "text2sql-settings.php",
+    "title": "text2sql settings",
+    "group": "search",
+    "status": "partial",
+    "api": [],
+    "proposal": "Local preferences and six free model overrides are supported. GET /capabilities plus watch-country/provider metadata are still required to match server model selectors and viewing-country choices.",
+    "params": [
+      "apicolor",
+      "eemodel",
+      "t2smodel",
+      "complexmodel",
+      "resultentitymodel",
+      "answermodel",
+      "return",
+      "watch_country"
+    ]
+  },
+  {
+    "file": "trending-movies.php",
+    "title": "trending movies",
+    "group": "trends",
+    "status": "waiting",
+    "api": [],
+    "proposal": "GET /trending/{entity}?window=day|week with pagination and provenance",
+    "params": []
+  },
+  {
+    "file": "trending-persons.php",
+    "title": "trending persons",
+    "group": "trends",
+    "status": "waiting",
+    "api": [],
+    "proposal": "GET /trending/{entity}?window=day|week with pagination and provenance",
+    "params": []
+  },
+  {
+    "file": "trending-series.php",
+    "title": "trending series",
+    "group": "trends",
+    "status": "waiting",
+    "api": [],
+    "proposal": "GET /trending/{entity}?window=day|week with pagination and provenance",
+    "params": []
+  },
+  {
+    "file": "upload-vision.php",
+    "title": "upload vision",
+    "group": "search",
+    "status": "supported",
+    "api": [
+      "POST /uploads/vision",
+      "GET /uploads/vision/{image_ref}"
+    ],
+    "proposal": "",
+    "params": [
+      "imageref",
+      "apicolor"
+    ]
+  },
+  {
+    "file": "user.php",
+    "title": "user",
+    "group": "broken",
+    "status": "legacy-unavailable",
+    "api": [],
+    "proposal": "Legacy wrapper includes a missing lib/*.inc.php. No working behavior to duplicate; define the intended feature before proposing an API.",
+    "params": []
+  },
+  {
+    "file": "users.php",
+    "title": "users",
+    "group": "inventories",
+    "status": "waiting",
+    "api": [],
+    "proposal": "GET /tmdb/users",
+    "params": []
+  },
+  {
+    "file": "videos.php",
+    "title": "videos",
+    "group": "media",
+    "status": "partial",
+    "api": [
+      "Existing entity details: image/video metadata only"
+    ],
+    "proposal": "GET /media/{media_id} with opaque media references, variants, attribution and pagination",
+    "params": [
+      "movieid",
+      "serieid",
+      "lang"
+    ]
+  },
+  {
+    "file": "wikidata-query.php",
+    "title": "wikidata query",
+    "group": "specialized",
+    "status": "waiting",
+    "api": [],
+    "proposal": "GET /wikidata/search with typed properties, values and qualifiers",
+    "params": [
+      "search"
+    ]
+  },
+  {
+    "file": "yt-player.php",
+    "title": "yt player",
+    "group": "media",
+    "status": "waiting",
+    "api": [],
+    "proposal": "API-authorized video resource and playback metadata",
+    "params": [
+      "yid"
+    ]
+  }
+]

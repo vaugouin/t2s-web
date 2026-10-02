@@ -1,0 +1,11 @@
+.git
+.claude
+.env
+.env.*
+node_modules
+test
+web/*.test.mjs
+web/AGENTS.md
+web/CLAUDE.md
+tmp
+*.log

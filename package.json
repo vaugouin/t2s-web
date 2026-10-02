@@ -1,0 +1,14 @@
+{
+  "name": "t2s-web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "An API-only web client and migration catalogue for fastapi-text2sql",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "start": "node --env-file-if-exists=.env server.mjs",
+    "dev": "node --env-file-if-exists=.env --watch server.mjs",
+    "check": "node --check server.mjs && node --check web/app.mjs",
+    "test": "node --test test/gateway.test.mjs web/api.test.mjs"
+  }
+}
