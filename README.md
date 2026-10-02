@@ -48,7 +48,7 @@ This is not an Internet-facing authentication service. Before any remote deploym
 
 ## Deploy behind nginx
 
-The deployment URL is **https://www.vaugouin.com/t2s-web/**. It becomes usable after the container is started and the nginx configuration is pulled and reloaded. The application and its gateway use the site's existing Basic login. Publishing this source repository does not expose the running service or its API keys.
+Deployment addresses are maintained in private operator documentation and are not published here. The application becomes usable after the container is started and nginx is configured and reloaded. The application and its gateway must remain behind authenticated access.
 
 `docker-compose.yml` builds the image and starts the non-root, read-only `t2s-web` container on the existing external `reverseproxy` network. It listens on port 4180 inside that network, with **no published host port**. No database or shared data volume is used. Compose overrides `HOST`, `PORT` and `T2S_BASE_PATH` for this deployment; the four API settings come from the ignored `.env` file at runtime. `.env` is also excluded from the image build context.
 

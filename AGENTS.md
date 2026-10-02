@@ -20,6 +20,9 @@ documented dependencies, not implemented features.
 - Each new source directory requires AGENTS.md and a CLAUDE.md pointer. Use UTF-8
   and LF. Ignore `.claude/`, secrets, dependency folders and temporary output.
 - Tests must use local API fixtures, not paid searches or production services.
+- This repository is public. Do not publish production deployment addresses in
+  source, documentation, repository metadata or screenshots. Keep them in the
+  private operator documentation; public examples use localhost or example.com.
 - `T2S_BASE_PATH` defaults to `/`; deployments below a URL prefix must set it
   explicitly, for example `/t2s-web/`. The server retains and validates this
   prefix, redirects its missing trailing slash while preserving the query, and
