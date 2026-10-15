@@ -10,6 +10,7 @@ const MAX_RESPONSE = 32 * 1024 * 1024;
 const DETAIL = /^\/(movies|series|persons|companies|networks|collections|topics|lists|movements|technicals|genres|groups|deaths|awards|nominations|locations)\/[1-9]\d*$/;
 const COMPOSITE = /^\/(seasons\/[1-9]\d*\/\d+|episodes\/[1-9]\d*\/\d+\/\d+)$/;
 const UPLOAD = /^\/uploads\/vision\/\d{8}-\d{6}_vision_[A-Za-z0-9][A-Za-z0-9._-]*_[0-9a-f]{32}\.(?:jpg|png|webp)$/;
+// answer_single_value stays accepted after FASTAPI-TEXT2SQL-331 removed the task (the API ignores it), so a tab still running the older app.mjs gets no 400.
 const SEARCH_FIELDS = new Set(['question','question_hashed','image_ref','page','rows_per_page','ui_language','retrieve_from_cache','store_to_cache','complex_question_processing', ...['entity_extraction','text2sql','complex','result_entity','answer_single_value','vision'].map(x=>'llm_model_'+x)]);
 const STATIC = new Map([
   ['/', ['index.html','text/html; charset=utf-8']],

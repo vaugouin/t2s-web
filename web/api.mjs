@@ -1,5 +1,5 @@
 // DOM-free contract helpers. No upstream credentials or database access belong here.
-export const MODEL_FIELDS = ['llm_model_entity_extraction', 'llm_model_text2sql', 'llm_model_complex', 'llm_model_result_entity', 'llm_model_answer_single_value', 'llm_model_vision'];
+export const MODEL_FIELDS = ['llm_model_entity_extraction', 'llm_model_text2sql', 'llm_model_complex', 'llm_model_result_entity', 'llm_model_vision'];
 export const DETAIL_ROUTES = Object.freeze({movie:'movies',serie:'series',series:'series',season:'seasons',episode:'episodes',person:'persons',company:'companies',network:'networks',collection:'collections',topic:'topics',list:'lists',movement:'movements',technical:'technicals',genre:'genres',group:'groups',death:'deaths',award:'awards',nomination:'nominations',location:'locations'});
 export function buildSearchRequest({question='',imageRef='',options={},page=1,questionHash}={}) {
   const body = {question:String(question).trim(),page:Math.max(1,Number(page)||1),rows_per_page:Math.min(200,Math.max(1,Number(options.rows_per_page)||50)),ui_language:options.ui_language==='fr'?'fr':'en',retrieve_from_cache:options.retrieve_from_cache!==false,store_to_cache:options.store_to_cache!==false,complex_question_processing:options.complex_question_processing===true};
