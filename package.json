@@ -1,6 +1,6 @@
 {
   "name": "t2s-web",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "type": "module",
   "description": "An API-only web client and migration catalogue for fastapi-text2sql",

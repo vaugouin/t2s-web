@@ -2,9 +2,9 @@
 
 A web client for **fastapi-text2sql** that runs without MariaDB. It uses browser-native JavaScript and a small Node.js gateway. Only the gateway knows the API credentials. Business data comes through the API; public TMDb images may load directly from `https://image.tmdb.org` using image paths returned by the API.
 
-The migration target is all **90 PHP routes in `tmdb-front/html/tmdb/`**. This initial implementation is **not full feature parity**: it uses today's API for search, photos, samples and 18 entity-detail families, while the migration catalogue explains the remaining API dependencies. The old front and API are unchanged.
+The migration target is every PHP route in `tmdb-front/html/tmdb/` (94 today). This initial implementation is **not full feature parity**: it uses today's API for search, photos, samples and 18 entity-detail families, while the migration catalogue explains the remaining API dependencies. The old front and API are unchanged.
 
-The complete specification, proposed endpoints and implementation tasks are maintained in the owner's private T2S backlog (`repos/t2s-web.md`). The public [route inventory](web/legacy-routes.json) records all 90 legacy routes and their current coverage.
+The complete specification, proposed endpoints and implementation tasks are maintained in the owner's private T2S backlog (`repos/t2s-web.md`). The public [route inventory](web/legacy-routes.json) records 90 legacy routes and their current coverage; the four pages added to the old front since (`sourcework.php`, `open-credits.php`, `movie-captions.php`, `plex-history.php`) are not in it yet.
 
 ## Run locally
 
