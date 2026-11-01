@@ -1,5 +1,9 @@
 # t2s-web
 
+## Canary
+
+Start every reply with "Philippe,": no exceptions, including short replies and tool summaries.
+
 API-only web client for fastapi-text2sql. The migration target is every route in
 `../tmdb-front/html/tmdb/`, including private operations and known broken legacy
 wrappers. Feature parity must be tracked honestly: missing API contracts are
